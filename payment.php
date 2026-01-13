@@ -2,32 +2,25 @@
 
 class ModelPayment
 {
-    private $paymentAmount = null;
-    private $coin = null;
-    private $idOrder = null;
-    private $paymentMethod = null;
-    private $extraLoad = null;
+    private ?string $paymentAmount = null;
+    private ?string $coin = null;
+    private ?string $idOrder = null;
+    private ?string $paymentMethod = null;
+    private ?array $extraLoad = null;
 
-    public $JSONPayment;
-
-    public function __construct($JSONPayment)
+    private function decodeJson($jsonPayment): ?array
     {
-        $this->JSONPayment = $JSONPayment;
+        if (!json_validate($jsonPayment)) return null;
+
+        return json_decode($jsonPayment, true);
     }
 
-    private function decodeJson(): array | null
+    public function normalize($jsonPayment): void
     {
-        if (json_validate($this->JSONPayment)) return null;
-
-        $decodedJson = json_decode($this->JSONPayment, true);
-
-        return $decodedJson;
-    }
-
-    public function normalize()
-    {
-        $decodedJson = $this->decodeJson();
+        $decodedJson = $this->decodeJson($jsonPayment);
         $reflectionClass = new ReflectionClass(ModelPayment::class);
+
+        if (count($decodedJson) <= 0) throw new Exception("O array não possui valores");
 
         foreach ($decodedJson as $key => $value) {
             $propertyName = $key;
@@ -37,4 +30,44 @@ class ModelPayment
             }
         }
     }
+
+    public function getPaymentAmount()
+    {
+        return $this->paymentAmount;
+    }
+
+    public function getCoin()
+    {
+        return $this->coin;
+    }
+
+    public function getIdOrder()
+    {
+        return $this->idOrder;
+    }
+
+    public function getPaymentMethod()
+    {
+        return $this->paymentMethod;
+    }
+
+    public function getExtraLoad()
+    {
+        return $this->extraLoad;
+    }
 }
+
+// $json = '{"paymentAmount": "100", 
+//             "coin": "BRL", "idOrder": 1, 
+//             "paymentMethod": "credit_card", 
+//             "extraLoad": null}';
+// $payment = new ModelPayment();
+// $payment->normalize($json);
+// var_dump($payment);
+
+// $reflectionClass = new ReflectionClass(new ModelPayment);
+// $method = $reflectionClass->getMethod('getPaymentMethod');
+// echo $method->getName()
+
+echo "O atributo 'teste'"
+?>
