@@ -56,18 +56,4 @@ class ModelPayment
         return $this->extraLoad;
     }
 }
-
-// $json = '{"paymentAmount": "100", 
-//             "coin": "BRL", "idOrder": 1, 
-//             "paymentMethod": "credit_card", 
-//             "extraLoad": null}';
-// $payment = new ModelPayment();
-// $payment->normalize($json);
-// var_dump($payment);
-
-// $reflectionClass = new ReflectionClass(new ModelPayment);
-// $method = $reflectionClass->getMethod('getPaymentMethod');
-// echo $method->getName()
-
-echo "O atributo 'teste'"
 ?>
