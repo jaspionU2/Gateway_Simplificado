@@ -1,3 +1,7 @@
 /.vscode
 /.github
 /.devcontainer
+.prettierrc
+node_modules/
+package.json
+package-lock.json
