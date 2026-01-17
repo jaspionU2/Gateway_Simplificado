@@ -1,12 +1,12 @@
 <?php
 
-class ModelPayment
+readonly class ModelPayment
 {
-    private ?string $paymentAmount = null;
-    private ?string $coin = null;
-    private ?string $idOrder = null;
-    private ?string $paymentMethod = null;
-    private ?array $extraLoad = null;
+    private ?string $paymentAmount;
+    private ?string $coin;
+    private ?string $idOrder;
+    private ?string $paymentMethod;
+    private ?array $extraLoad;
 
     private function decodeJson($jsonPayment): ?array
     {
@@ -29,31 +29,6 @@ class ModelPayment
                 $property->setValue($this, $value);
             }
         }
-    }
-
-    public function getPaymentAmount()
-    {
-        return $this->paymentAmount;
-    }
-
-    public function getCoin()
-    {
-        return $this->coin;
-    }
-
-    public function getIdOrder()
-    {
-        return $this->idOrder;
-    }
-
-    public function getPaymentMethod()
-    {
-        return $this->paymentMethod;
-    }
-
-    public function getExtraLoad()
-    {
-        return $this->extraLoad;
     }
 }
 ?>
